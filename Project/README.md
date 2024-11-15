@@ -15,7 +15,7 @@ The following code will be available:
 1. **Frontend:** A React-based calculator web application.
 2. **Backend:** A Python Flask API for performing calculation operations.
 
-> **NOTE:** The template `Dockerfile` and `YAML configurations` are available in this directory. It is **NOT** compulsory to use these files as they are. It may be that creating your own fiels from scratch and referring to the templates may be more beneficial and efficient. Feel free to adapt based on which feels best as needed.
+> **NOTE:** The template `Dockerfile` and `YAML configurations` are available in this directory. It is **NOT** compulsory to use these files as they are. It may be that creating your own files from scratch and referring to the templates may be more beneficial and efficient. Feel free to adapt based on which feels best as needed.
 
 ## TODO Tasks
 ### STEP-1: Implement the Dockerfiles
@@ -29,7 +29,7 @@ The following code will be available:
 3. Configure the pipeline to push images to Docker Hub.
 
 ### STEP-3: Write Clear Documentation
-- Create a comprehensive README.md with setup instructions and an explanation of the created DockerFile and YAML configuration.
+- Create a comprehensive README.md with setup instructions and an explanation of the created Dockerfile and YAML configuration.
 
 ## Technical Requirements
 

@@ -1,19 +1,19 @@
 # TODO-STEP 1: Define the Workflow Name
 # Uncomment the following line and replace <WORKFLOW_NAME> with a descriptive name. For example: Python CI/CD Pipeline
-#name: <WORKFLOW NAME>
+name: Python CI/CD Pipeline
 
 # TODO-STEP 2: Define the Trigger Events
 # Uncomment the following lines to trigger the workflow on push and pull request events
-#on:
-#  push:
-#  pull_request:
+on:
+ push:
+ pull_request:
 
 jobs:
   # Build job
   # TODO-STEP 3: Create your "Build" job
-  #<ENTER JOB NAME 1>:
+  build:
     # TODO-STEP 3a: Specify the runner for this job
-    #runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
     
     steps:
     - name: Checkout repository
@@ -25,20 +25,20 @@ jobs:
         python-version: '3.9'
 
     # TODO-STEP 3b: Enter a name for your step to display on GitHub. For example: Install dependencies
-    #- name: <NAME OF STEP>
+    - name: Install dependencies
     # TODO-STEP 3c: Add commands to install dependencies
     # Hint: Use pip to install packages from requirements.txt
-    #  run: |
-    #    python -m pip install --upgrade pip  
-    #    pip install -r <FILE NAME>.txt
+     run: |
+       python -m pip install --upgrade pip  
+       pip install -r requirements.txt
 
   # Test job
   # TODO-STEP 4: Create your "Test" job
-  #<ENTER JOB NAME 2>:
+  test:
     # TODO-STEP 4a: Ensure this job runs after the build job.
     # NOTE: Make sure to use the Job Name used above in Line 14. 
-    #needs: <ENTER JOB NAME 1>
-    #runs-on: ubuntu-latest
+    needs: build
+    runs-on: ubuntu-latest
     
     steps:
     - name: Checkout repository
@@ -50,14 +50,14 @@ jobs:
         python-version: '3.9'
 
     # TODO-STEP 4b: Add command to install dependencies
-    #- name: Install dependencies
-    #  run: |
-    #    python -m pip install --upgrade pip
-    #    pip install -r requirements.txt
+    - name: Install dependencies
+     run: |
+       python -m pip install --upgrade pip
+       pip install -r requirements.txt
 
     # TODO-STEP 4c: Add command to run tests
     # Hint: Use pytest to run your test cases
-    #- name: Run tests
-    #  run: pytest
+    - name: Run tests
+     run: pytest
 
 # Remember to remove the '#' to uncomment lines when filling in the placeholders

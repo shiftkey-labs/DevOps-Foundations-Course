@@ -1,0 +1,67 @@
+# TODO: Define the Workflow Name
+name: testing
+
+# TODO: Define triggers for the workflow
+on:
+  push:
+    branches: [ master ]
+  # pull_request:
+  #   branches: 
+
+jobs:
+  # TODO: Define a job for building and testing the frontend
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      # TODO: Checkout code
+      # TODO: Setup Node.js
+      # TODO: Install dependencies
+      # TODO: Run tests
+      # TODO: Build the React app
+
+
+
+  # TODO: Define a job for building and testing the backend
+  backend:
+    runs-on: ubuntu-latest
+    steps:
+      # TODO: Checkout code
+      - uses: actions/checkout@v2  
+
+      # TODO: Setup Python
+      - name: Set up Python
+        uses: actions/setup-python@v2  
+        with:
+          python-version: 3.9  
+
+      # TODO: Install dependencies
+      - name: Install dependencies
+        run: |
+          echo "Installing dependencies..."
+          pip install -r requirements.txt  # Install project dependencies
+
+      # TODO: Run tests
+      - name: Run tests
+        run: pytest  
+
+
+
+
+  # TODO: Define a job for building and pushing Docker images
+  docker:
+    # Run this job only when 'frontend' & 'backend' stages are sucessfully completed
+    needs: 
+    runs-on: ubuntu-latest
+    steps:
+      # TODO: Checkout code
+      # TODO: Setup Docker
+      # TODO: Build frontend Docker image
+      # TODO: Build backend Docker image
+      # TODO: Push images to Docker Hub (if on main branch)
+
+  # OPTIONAL: Define a deployment job (if applicable)
+  deploy:
+    needs: docker
+    runs-on: ubuntu-latest
+    steps:
+      # TODO: Add deployment steps

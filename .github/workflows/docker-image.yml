@@ -38,8 +38,7 @@ jobs:
       - name: Install dependencies
         run: |
           echo "Installing dependencies..."
-          pwd
-          ls -alr
+          cd Project/backend
           pip install -r requirements.txt  # Install project dependencies
 
       # TODO: Run tests

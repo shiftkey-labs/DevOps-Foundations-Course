@@ -10,10 +10,12 @@ on:
 
 jobs:
   # TODO: Define a job for building and testing the frontend
-  #frontend:
-    #runs-on: ubuntu-latest
-    #steps:
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
       # TODO: Checkout code
+      - uses: actions/checkout@v2 
+
       # TODO: Setup Node.js
       # TODO: Install dependencies
       # TODO: Run tests

@@ -45,8 +45,6 @@ jobs:
         run: pytest  
 
 
-
-
   # TODO: Define a job for building and pushing Docker images
   docker:
     # Run this job only when 'frontend' & 'backend' stages are sucessfully completed

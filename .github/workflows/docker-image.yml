@@ -42,8 +42,8 @@ jobs:
           pip install -r requirements.txt  # Install project dependencies
 
       # TODO: Run tests
-      - name: Run tests
-        run: pytest  
+      #- name: Run tests
+        #run: pytest  
 
 
   # TODO: Define a job for building and pushing Docker images

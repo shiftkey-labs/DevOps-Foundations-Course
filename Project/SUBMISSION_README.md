@@ -73,7 +73,7 @@
 
 
 ### CI/CD Pipeline (YAML Configuration)
-hfsfs
+
 **Explain your CI/CD pipeline:**
 
 - What triggers the pipeline (e.g., push to main branch)?

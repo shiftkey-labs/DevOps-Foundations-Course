@@ -5,11 +5,12 @@ version: '3'
 services:
   frontend:
     # Specify the build context for the frontend
-    build: I have no idea what thi is and how to build it like build what?
+    build: 
+      context: ./frontend
     # Map the host port to the container port
     ports: 3000:3000
     # Specify dependencies (if applicable)
-    depends_on: Node.js
+    depends_on: Node.js, backend
 
     # Additional options (uncomment and configure as needed):
     
@@ -25,6 +26,7 @@ services:
   backend:
     # Specify the build context for the backend
     build:
+      context: ./backend
     # Map the host port to the container port
     ports: 5000:5000
     

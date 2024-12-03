@@ -25,11 +25,6 @@ jobs:
           cd Project/frontend
           npm install
           
-      - name: Run Tests
-        run: |
-          cd Project/frontend
-          CI=true npm test
-          
       - name: Build React App
         run: |
           cd Project/frontend

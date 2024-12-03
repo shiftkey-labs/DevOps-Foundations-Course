@@ -95,11 +95,11 @@ jobs:
         with:
           context: ./Project/frontend
           push: ${{ github.ref == 'refs/heads/master' }}
-          tags: yourdockerhubusername/frontend:latest
+          tags: ar793115dhdhdhdh/frontend:latest
           
       - name: Build and push Backend Docker image
         uses: docker/build-push-action@v2
         with:
           context: ./Project/backend
           push: ${{ github.ref == 'refs/heads/master' }}
-          tags: yourdockerhubusername/backend:latest
+          tags: ar793115dhdhdhdh/backend:latest

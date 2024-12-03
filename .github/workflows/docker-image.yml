@@ -28,12 +28,12 @@ jobs:
       - name: Run Tests
         run: |
           cd Project/frontend
-          npm test -- --watchAll=false
+          CI=true npm test
           
       - name: Build React App
         run: |
           cd Project/frontend
-          npm run build
+          CI=true npm run build
 
 
   # TODO: Define a job for building and testing the backend

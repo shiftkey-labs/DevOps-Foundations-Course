@@ -19,4 +19,9 @@ EXPOSE 5000
 # Run app.py when the container launches
 CMD ["python3", "app.py"]
 
+RUN pip install gunicorn
+
+CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:5001", "app:app"]
+
+
 # End of File

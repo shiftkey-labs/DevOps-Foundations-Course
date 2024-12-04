@@ -55,26 +55,6 @@ jobs:
       #- name: Run tests
         #run: pytest  
 
-
-  # TODO: Define a job for building and pushing Docker images
-  #docker:
-    # Run this job only when 'frontend' & 'backend' stages are sucessfully completed
-    #needs: 
-    #runs-on: ubuntu-latest
-    #steps:
-      # TODO: Checkout code
-      # TODO: Setup Docker
-      # TODO: Build frontend Docker image
-      # TODO: Build backend Docker image
-      # TODO: Push images to Docker Hub (if on main branch)
-
-  # OPTIONAL: Define a deployment job (if applicable)
-  #deploy:
-   # needs: docker
-    #runs-on: ubuntu-latest
-    #steps:
-      # TODO: Add deployment steps
-
   docker:
     needs: [frontend, backend]
     runs-on: ubuntu-latest

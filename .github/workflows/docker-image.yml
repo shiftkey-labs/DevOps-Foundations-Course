@@ -1,0 +1,85 @@
+# TODO: Define the Workflow Name
+name: testing
+
+# TODO: Define triggers for the workflow
+on:
+  push:
+    branches: [ master ]
+  # pull_request:
+  #   branches: 
+
+jobs:
+  # TODO: Define a job for building and testing the frontend
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+          
+      - name: Install Dependencies
+        run: |
+          cd Project/frontend
+          npm install
+          
+      - name: Build React App
+        run: |
+          cd Project/frontend
+          CI=true npm run build
+
+
+  # TODO: Define a job for building and testing the backend
+  backend:
+    runs-on: ubuntu-latest
+    steps:
+      # TODO: Checkout code
+      - uses: actions/checkout@v2  
+
+      # TODO: Setup Python
+      - name: Set up Python
+        uses: actions/setup-python@v2  
+        with:
+          python-version: 3.9  
+
+      # TODO: Install dependencies
+      - name: Install dependencies
+        run: |
+          echo "Installing dependencies..."
+          cd Project/backend
+          pip install -r requirements.txt  # Install project dependencies
+
+      # TODO: Run tests
+      #- name: Run tests
+        #run: pytest  
+
+  docker:
+    needs: [frontend, backend]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+        
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          
+      - name: Build and push Frontend Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: ./Project/frontend
+          push: ${{ github.ref == 'refs/heads/master' }}
+          tags: ar793115dhdhdhdh/frontend:latest
+          
+      - name: Build and push Backend Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: ./Project/backend
+          push: ${{ github.ref == 'refs/heads/master' }}
+          tags: ar793115dhdhdhdh/backend:latest

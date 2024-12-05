@@ -6,42 +6,56 @@ services:
   frontend:
     # Specify the build context for the frontend
     build:
+    context: ./frontend
     # Map the host port to the container port
     ports:
+     - "3000:3000"
     # Specify dependencies (if applicable)
     depends_on:
-
+      - backend
     # Additional options (uncomment and configure as needed):
     
     # Specify environment variables if needed
-    # environment:
+
+    environment:
+      - NODE_ENV=production
     
     # Specify volume for live code reloading (optional)
-    # volumes:
+    volumes:
+      - ./frontend:/app
     
     # Specify the command to run the development server (if different from Dockerfile)
-    # command:
+    command: ["npm", "start"]
 
   backend:
     # Specify the build context for the backend
     build:
+      context: ./backend
     # Map the host port to the container port
     ports:
-    
+      - "5000:5000"    
     # Additional options (uncomment and configure as needed):
     
     # Specify environment variables if needed
-    # environment:
-    
+    environment:
+      - FLASK_ENV=development    
     # Specify volume for live code reloading (optional)
-    # volumes:
-    
+    volumes:
+      - ./backend:/app    
     # Specify the command to run the development server (if different from Dockerfile)
-    # command:
+    command: ["python", "app.py"]
+      env_file:
+        - .env
 
 # Additional components (uncomment and configure as needed):
 # Define a custom network (if applicable)
-# networks:
+networks:
+  default:
+    driver: bridge
+
 
 # Define volumes (if applicable)
-# volumes:
+volumes:
+  backend-data:
+  frontend-data:
+

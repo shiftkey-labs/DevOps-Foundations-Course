@@ -44,8 +44,7 @@ services:
       - ./backend:/app    
     # Specify the command to run the development server (if different from Dockerfile)
     command: ["python", "app.py"]
-      env_file:
-        - .env
+
 
 # Additional components (uncomment and configure as needed):
 # Define a custom network (if applicable)

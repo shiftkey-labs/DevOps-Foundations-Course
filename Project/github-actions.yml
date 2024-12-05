@@ -1,12 +1,14 @@
 # TODO: Define the Workflow Name
-name: 
+name: CI/CD Pipeline
 
 # TODO: Define triggers for the workflow
 on:
-  # push:
-  #   branches: 
-  # pull_request:
-  #   branches: 
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+     - main 
 
 jobs:
   # TODO: Define a job for building and testing the frontend
@@ -14,35 +16,73 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # TODO: Checkout code
+      - name: Checkout code
+        uses: actions/checkout@v2
       # TODO: Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14"
       # TODO: Install dependencies
-      # TODO: Run tests
+      - name: Install dependencies
+        run: npm install --prefix ./frontend
+      # TODO: Run tests 
+      - name: Run frontend tests
+        run: npm test --prefix ./frontend
       # TODO: Build the React app
+      - name: Build the React app
+        run: npm run build --prefix ./frontend
 
   # TODO: Define a job for building and testing the backend
   backend:
     runs-on: ubuntu-latest
     steps:
       # TODO: Checkout code
+      - name: Checkout code
+        uses: actions/checkout@v2
       # TODO: Setup Python
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.9"
       # TODO: Install dependencies
+      - name: Install dependencies
+        run: pip install -r ./backend/requirements.txt
       # TODO: Run tests
+      - name: Run backend tests
+        run: pytest ./backend
 
   # TODO: Define a job for building and pushing Docker images
   docker:
     # Run this job only when 'frontend' & 'backend' stages are sucessfully completed
-    needs: 
+    needs: [frontend,backend]
     runs-on: ubuntu-latest
     steps:
       # TODO: Checkout code
+      - name: checkout code
+        uses: actions/checkout@v2
       # TODO: Setup Docker
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v2
       # TODO: Build frontend Docker image
+      - name: Build frontend Docker image
+        run: docker build -t ssrpt927/frontend:14-alpine ./frontend
       # TODO: Build backend Docker image
+      - name: Build backend Docker image
+        run: docker build -t ssrpt927/backend:3.9-slim ./backend
       # TODO: Push images to Docker Hub (if on main branch)
-
+      - name: Push Docker images
+        run: |
+          docker push ssrpt927/frontend:14-alpine
+          docker push ssrpt927/backend:3.9-slim
+        if: github.ref == 'refs/heads/main'
   # OPTIONAL: Define a deployment job (if applicable)
   deploy:
     needs: docker
     runs-on: ubuntu-latest
     steps:
       # TODO: Add deployment steps
+      - name: Deploy application
+        run: |
+          echo "Deploying application."
+

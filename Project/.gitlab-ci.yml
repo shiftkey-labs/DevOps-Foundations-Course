@@ -1,38 +1,70 @@
 # TODO: Define stages for your pipeline
 stages:
+  - build
+  - test
+  - docker-build
+  - deploy
 
 # TODO: Define variables (if needed)
 variables:
+  NODE_VERSION: "14"
+  PYTHON_VERSION: "3.9"
 
 # TODO: Define a job for building the frontend
 frontend-job:
-  stage: # TODO: Specify stage
-  image: # TODO: Specify Node.js image
+  stage: build
+  # TODO: Specify stage
+  image: node:${NODE_VERSION}-alpine
+  # TODO: Specify Node.js image
   script:
     # TODO: Install dependencies
+    - echo "install dependencies for frontend"
+    - npm install --prefix ./fronted
     # TODO: Build the React app
+    - echo "build the react app"
+    - npm run build --prefix ./frontend
 
 # TODO: Define a job for building and testing the backend
 backend-job:
-  stage: # TODO: Specify stage
-  image: # TODO: Specify Python image
+  stage: test
+  # TODO: Specify stage
+  image: python:${PYTHON_VERSION}-slim
+  # TODO: Specify Python image
   script:
     # TODO: Install dependencies
+    - echo "install dependencie for backend"
+    - pip install -r ./backend/requirements.txt
     # TODO: Run tests
+    - echo "run tests"
+    - pytest ./backend
 
 # TODO: Define a job for building Docker images
 docker-build:
-  stage: # TODO: Specify stage
+  stage: docker-build
+  # TODO: Specify stage
   image: docker:latest
   services:
     - docker:dind
   script:
     # TODO: Build frontend Docker image
+    - echo "Build frontend Docker image"
+    - docker build ssrpt927/frontend:latest ./frontend
     # TODO: Build backend Docker image
+    - echo "Build backend Docker image"
+    - docker build -t ssrpt927/backend:latest ./backend
     # TODO: Push images to Docker Hub (if on main branch)
+    - echo "Push images to Docker Hub"
+    - docker push ssrpt927/frontend:latest
+    - docker push ssrpt927/backend:latest
+  only:
+    - main
 
 # OPTIONAL: Define a deployment job (if applicable)
 deploy:
-  stage: # TODO: Specify stage
+  stage: deploy
+  # TODO: Specify stage
   script:
+  - echo "deploy the application."
     # TODO: Add deployment steps
+  only:
+    - main
